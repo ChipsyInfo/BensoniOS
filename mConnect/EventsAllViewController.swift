@@ -49,7 +49,6 @@ class EventsAllViewController: UIViewController,UITableViewDelegate,UITableViewD
             self.Emptylabel.alpha = 0
         }
         if reachable.isReachable == true {
-            //print("Internet connection OK")
             
             
             eventsData = EventsAllInfoDataController()
