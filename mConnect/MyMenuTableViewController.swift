@@ -266,7 +266,7 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
         // Return the number of rows in the section.
         if section == 0
         {
-           return 6
+           return 7
         }
         else
         {
