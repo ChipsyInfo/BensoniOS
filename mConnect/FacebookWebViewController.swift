@@ -87,6 +87,11 @@ class FacebookWebViewController: UIViewController,UIWebViewDelegate,ENSideMenuDe
         UIGraphicsEndImageContext()
         return newImage
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "FacebookWebViewController"
+
+    }
     func webViewDidFinishLoad(_ webView:UIWebView)
     {
         
@@ -107,6 +112,7 @@ class FacebookWebViewController: UIViewController,UIWebViewDelegate,ENSideMenuDe
             hideSideMenuView()
             delay(0.6)
             {
+                self.appDelegate.SelectedOption = ""
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
                 let _ = self.navigationController?.popToRootViewController(animated: true)
             }
@@ -119,6 +125,7 @@ class FacebookWebViewController: UIViewController,UIWebViewDelegate,ENSideMenuDe
                 
                 if currentURL == checkstring
                 {
+                    self.appDelegate.SelectedOption = "backToFacebookList"
                     let _ = self.navigationController?.popViewController(animated: false)
                 }
                 else
@@ -129,6 +136,7 @@ class FacebookWebViewController: UIViewController,UIWebViewDelegate,ENSideMenuDe
             } else {
                 //Pop view controller to preview view controller
                 //NSNotificationCenter.defaultCenter().postNotificationName("reload", object: self, userInfo: nil)
+                self.appDelegate.SelectedOption = "backToFacebookList"
                 let _ = self.navigationController?.popViewController(animated: false)
             }
         }

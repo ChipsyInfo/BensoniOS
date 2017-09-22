@@ -139,6 +139,11 @@ class EmergencyNumberViewController: UIViewController,UITableViewDelegate,UITabl
         let viewtap6 = UITapGestureRecognizer(target: self, action: #selector(self.emergencyTrafficSignlClicked(_:)))
         self.emergencyView6.addGestureRecognizer(viewtap6)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "EmergencyNumberViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -164,6 +169,7 @@ class EmergencyNumberViewController: UIViewController,UITableViewDelegate,UITabl
     func gotoHome()
     {
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
+        self.appDelegate.SelectedOption = ""
         hideSideMenuView()
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)

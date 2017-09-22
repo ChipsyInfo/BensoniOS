@@ -680,6 +680,7 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 self.isContactOpened = false
                 self.isprivacyOpened = false
                 self.isTermsOpened = false
+                
                 if self.facebookCount == 1
                 {
                     let url:URL = URL(string: self.fblink!)!
@@ -814,7 +815,6 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 self.isTermsOpened = false
                 
             
-                
 
                 if AppDelegateData.YouTubeArrayCountHome! > 1
                 {

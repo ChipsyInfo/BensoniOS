@@ -64,6 +64,11 @@ class TwitterTimelineTableViewController: TWTRTimelineViewController,ENSideMenuD
         
         //self.showTimeline()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "TwitterViewDetailController"
+
+    }
     func showTimeline() {
         // Create an API client and data source to fetch Tweets for the timeline
         let client = TWTRAPIClient()
@@ -127,12 +132,14 @@ class TwitterTimelineTableViewController: TWTRTimelineViewController,ENSideMenuD
             hideSideMenuView()
             delay(0.6)
             {
+                self.appDelegate.SelectedOption = ""
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
                 let _ = self.navigationController?.popToRootViewController(animated: true)
             }
         }
         else
         {
+            self.appDelegate.SelectedOption = "backToTwitterList"
             hideSideMenuView()
             let _ = self.navigationController?.popViewController(animated: false)
         }

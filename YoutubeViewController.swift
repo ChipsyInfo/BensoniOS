@@ -22,6 +22,7 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
     var reachable:Reachability!
     var appDelegate:AppDelegate!
     @IBOutlet weak var ybTable: UITableView!
+    @IBOutlet var youtubeTopConstraint: NSLayoutConstraint!
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }
@@ -131,6 +132,25 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         self.navigationItem.rightBarButtonItems = [menu]
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "YoutubedataReady"), object: nil)
         //self.view.addSubview(self.flowmenu)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+        if self.view.frame.origin.y >= 64
+        {
+            self.youtubeTopConstraint.constant = 0
+            //self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            // self.view.addSubview(self.flowmenu)
+
+        }
+        else
+        {
+            self.youtubeTopConstraint.constant = 0
+            // self.view.addSubview(self.flowmenu)
+        }
+        appDelegate.SelectedOption = "YoutubeViewController"
+        
     }
     func setcolorImage(_ img:UIImage,hexcolr:Int)-> UIImage
     {
@@ -252,16 +272,23 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
             self.isValuePresent = self.ybData.isValuePresent
             self.ybTable.reloadData()
             self.spinner.stopAnimating()
+            if self.view.frame.origin.y >= 64
+            {
+                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+                self.youtubeTopConstraint.constant = 64
+            }
         }
-        
+
     }
-    
+
     func gotoHome()
     {
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
         hideSideMenuView()
         delay(0.6)
         {
+            self.appDelegate.SelectedOption = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             let _ = self.navigationController?.popToRootViewController(animated: true)
         }
@@ -457,7 +484,23 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         {
             hideSideMenuView()
             let urlString = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "link") as? String
-            if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
+            let application = UIApplication.shared
+            let appURL = NSURL(string: urlString!)!
+            if application.canOpenURL(appURL as URL) {
+                if #available(iOS 10.0, *) {
+                    application.open(appURL as URL)
+                } else {
+                    // Fallback on earlier versions
+                }
+            } else {
+                // if Youtube app is not installed, open URL inside Safari
+                if #available(iOS 10.0, *) {
+                    application.open(appURL as URL)
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+           /* if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
             {
                 UIApplication.shared.openURL(URL(string:"youtube://\(urlString!)" )!)
             }
@@ -467,12 +510,28 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 {
                     UIApplication.shared.openURL(URL(string:"\(urlString!)" )!)
                 }
-            }
+            }*/
         }
         else
         {
             let urlString = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "link") as? String
-            if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
+            let application = UIApplication.shared
+            let appURL = NSURL(string: urlString!)!
+            if application.canOpenURL(appURL as URL) {
+                if #available(iOS 10.0, *) {
+                    application.open(appURL as URL)
+                } else {
+                    // Fallback on earlier versions
+                }
+            } else {
+                // if Youtube app is not installed, open URL inside Safari
+                if #available(iOS 10.0, *) {
+                    application.open(appURL as URL)
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+         /*   if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
             {
                 UIApplication.shared.openURL(URL(string:"youtube://\(urlString!)" )!)
             }
@@ -482,7 +541,7 @@ class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 {
                     UIApplication.shared.openURL(URL(string:"\(urlString!)" )!)
                 }
-            }
+            }*/
         }
     }
 }

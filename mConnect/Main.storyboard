@@ -2397,7 +2397,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L5r-2S-mj9" id="K35-IX-u15">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -2555,6 +2555,7 @@
                     </view>
                     <connections>
                         <outlet property="ybTable" destination="w4h-nS-4fz" id="Nrl-6d-XD6"/>
+                        <outlet property="youtubeTopConstraint" destination="iZK-vf-iCq" id="jOf-f3-3rM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZq-zL-nGR" userLabel="First Responder" sceneMemberID="firstResponder"/>

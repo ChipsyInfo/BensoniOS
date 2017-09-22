@@ -104,6 +104,11 @@ class ContactViewController: UIViewController,ENSideMenuDelegate,MFMailComposeVi
         let mailtap = UITapGestureRecognizer(target: self, action: #selector(self.mailViewTouched))
         mailView.addGestureRecognizer(mailtap)
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "ContactViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -164,6 +169,7 @@ class ContactViewController: UIViewController,ENSideMenuDelegate,MFMailComposeVi
     }
     func gotoHome()
     {
+        self.appDelegate.SelectedOption = ""
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
         hideSideMenuView()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)

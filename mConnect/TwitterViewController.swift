@@ -239,12 +239,20 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         //flowmenu.contentImage = UIImage(named: "fab_more")
     }
     override func viewDidAppear(_ animated: Bool) {
-        appDelegate.SelectedOption = "TwitterViewController"
+        super.viewDidAppear(true)
+
         if self.view.frame.origin.y >= 64
         {
-            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.TwetterTableViewTopContraint.constant = 0
+            if self.appDelegate.SelectedOption == "backToTwitterList"
+            {
+                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                self.TwetterTableViewTopContraint.constant = 64
+            }
+            appDelegate.SelectedOption = "TwitterViewController"
+            //self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
            // self.view.addSubview(self.flowmenu)
-            self.TwetterTableViewTopContraint.constant = 64
+
         }
         else
         {
@@ -328,6 +336,7 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         hideSideMenuView()
         delay(0.6)
         {
+            self.appDelegate.SelectedOption = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             let _ = self.navigationController?.popToRootViewController(animated: true)
         }

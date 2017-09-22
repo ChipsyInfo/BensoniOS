@@ -69,13 +69,16 @@ class CouncilMemberViewController: UIViewController,UITableViewDelegate,UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "councilmemberAllDataReady"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
-        self.appDelegate.SelectedOption = "CouncilMemberViewController"
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "CouncilMemberViewController"
+
     }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
     func gotoHome()
     {
+        self.appDelegate.SelectedOption = ""
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
         hideSideMenuView()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)

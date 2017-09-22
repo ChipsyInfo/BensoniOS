@@ -134,8 +134,9 @@ class EventsAllViewController: UIViewController,UITableViewDelegate,UITableViewD
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData), name: NSNotification.Name(rawValue: "eventsAllDataReady"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
-        
-        
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "EventsAllViewController"
+
     }
     func loadTableData()
     {
@@ -456,6 +457,7 @@ class EventsAllViewController: UIViewController,UITableViewDelegate,UITableViewD
         hideSideMenuView()
         delay(0.6)
         {
+            self.appDelegate.SelectedOption = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
            let _ =  self.navigationController?.popToRootViewController(animated: true)
         }

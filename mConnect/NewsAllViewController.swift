@@ -149,10 +149,7 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData), name: NSNotification.Name(rawValue: "newsAllDataReady"), object: nil)
         //NSNotificationCenter.defaultCenter().addObserver(self,selector:#selector(self.loadTableData),name:"newsAllDataReady", object: nil)
     }
-    override func viewDidAppear(_ animated: Bool) {
-        
-        //self.animateTable()
-    }
+
     func pathMenu(_ menu: PathMenu, didSelectIndex idx: Int) {
         //print("Select the index : \(idx)")
         if idx == 0
@@ -323,6 +320,11 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
          }*/
         //self.newsAllTable.reloadData()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "NewsAllViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -338,6 +340,7 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
         hideSideMenuView()
         delay(0.6)
         {
+            self.appDelegate.SelectedOption = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             let _ = self.navigationController?.popToRootViewController(animated: true)
         }

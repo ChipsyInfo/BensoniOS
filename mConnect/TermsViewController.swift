@@ -58,6 +58,11 @@ class TermsViewController: UIViewController,ENSideMenuDelegate {
         }
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "TermsViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -83,6 +88,7 @@ class TermsViewController: UIViewController,ENSideMenuDelegate {
     func gotoHome()
     {
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
+        self.appDelegate.SelectedOption = ""
         hideSideMenuView()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
         let _ = self.navigationController?.popToRootViewController(animated: true)

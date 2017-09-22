@@ -195,6 +195,10 @@ class MemberDetailViewController: UIViewController,ENSideMenuDelegate,MFMailComp
         let callltap = UITapGestureRecognizer(target: self, action: #selector(self.callViewTouched))
         callView.addGestureRecognizer(callltap)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.memberDetailScroll.setContentOffset(CGPoint.zero, animated: true)
+    }
     func updateRightView()
     {
         let animation:CATransition  = CATransition()
@@ -256,24 +260,24 @@ class MemberDetailViewController: UIViewController,ENSideMenuDelegate,MFMailComp
             UIApplication.shared.openURL(URL(string:mobilenumbr )!)
         }
     }
-    override func viewDidAppear(_ animated: Bool) {
-        
-        /*UIView.animateWithDuration(0.7, animations: { () -> Void in
-            self.rightColorView.backgroundColor = UIColor(hex: 0x509FF7)
-            self.leftColorView.backgroundColor = UIColor(hex: 0x509FF7)
-        })*/
-    }
+
     func delay(_ delay: Double, closure: @escaping ()->()) {
         DispatchQueue.main.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
             execute: closure
         )
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "MemberDetailViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
     func gotoHome()
     {
+        self.appDelegate.SelectedOption = ""
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
         hideSideMenuView()
         let _ = self.navigationController?.popViewController(animated: false)

@@ -258,7 +258,27 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
         }
     }
     override func viewDidAppear(_ animated: Bool) {
-        
+        super.viewDidAppear(true)
+        if self.view.frame.origin.y >= 64
+        {
+            self.FacebookTableViewTopConstraint.constant = 0
+            if self.appDelegate.SelectedOption == "backToFacebookList"
+            {
+                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                self.FacebookTableViewTopConstraint.constant = 64
+            }
+            appDelegate.SelectedOption = "FacebookViewController"
+            //self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            // self.view.addSubview(self.flowmenu)
+
+        }
+        else
+        {
+            self.FacebookTableViewTopConstraint.constant = 0
+            // self.view.addSubview(self.flowmenu)
+        }
+        appDelegate.SelectedOption = "FacebookViewController"
+
     }
     func loadTableData()
     {
@@ -310,6 +330,7 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
         hideSideMenuView()
         delay(0.6)
         {
+            self.appDelegate.SelectedOption = ""
             NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             let _ = self.navigationController?.popToRootViewController(animated: true)
         }

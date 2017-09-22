@@ -59,6 +59,11 @@ class PrivacyPolicyViewController: UIViewController,ENSideMenuDelegate {
         }
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        appDelegate.SelectedOption = "PrivacyPolicyViewController"
+
+    }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -83,6 +88,7 @@ class PrivacyPolicyViewController: UIViewController,ENSideMenuDelegate {
     }
     func gotoHome()
     {
+        self.appDelegate.SelectedOption = ""
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
         hideSideMenuView()
         NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
