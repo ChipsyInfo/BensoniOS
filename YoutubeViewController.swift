@@ -1,29 +1,27 @@
 //
-//  TwitterViewController.swift
-//  mConnect
+//  YoutubeViewController.swift
+//  WESchool
 //
-//  Created by chipsy services on 17/10/16.
+//  Created by chipsy services on 10/12/16.
 //  Copyright © 2016 chipsy services. All rights reserved.
 //
 
 import UIKit
-import QuartzCore
-class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegate,UITableViewDelegate,UITableViewDataSource {
+
+class YoutubeViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegate,UITableViewDelegate,UITableViewDataSource {
     var  menuButton:UIButton!
     var  menu:UIBarButtonItem!
-    var twitterData:TwitterInfoDataController!
-    var twitterImage:UIImage!
-    var spinner:SARMaterialDesignSpinner!
+    var ybData:YoutubeInfoDataController!
+    var isValuePresent:Bool! = false
+    var youtubeImage:UIImage!
     var flowmenu:PathMenu!
+    var spinner:SARMaterialDesignSpinner!
     var bigimagearray:[UIImage]! = []
     var smallimgarray:[UIImage]! = []
-    var TwitterArray:NSArray! = NSArray()
+    var YoutubeArray:NSArray! = NSArray()
     var reachable:Reachability!
-    var Emptylabel:UILabel!
-    @IBOutlet var twitterTable: UITableView!
     var appDelegate:AppDelegate!
-    @IBOutlet weak var TwetterTableViewTopContraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var ybTable: UITableView!
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }
@@ -36,44 +34,33 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
-         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.SelectedOption = "TwitterViewController"
-        DispatchQueue.main.async {
-            self.Emptylabel = UILabel(frame: CGRect(x: 0, y: (UIScreen.main.bounds.height/2)-(50/2), width: UIScreen.main.bounds.width, height: 50))
-            self.Emptylabel.textColor = UIColor.black
-            self.Emptylabel.numberOfLines = 3
-            self.Emptylabel.font = UIFont.systemFont(ofSize: 18)
-            self.Emptylabel.textAlignment = .center
-            self.Emptylabel.text = "There are no twitter profiles at this movement. Please check back later…"
-            self.view.addSubview(self.Emptylabel)
-            self.view.bringSubview(toFront: self.Emptylabel)
-            self.Emptylabel.alpha = 0
-        }
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "YoutubeViewController"
         if reachable.isReachable == true {
             //print("Internet connection OK")
             
             
-            twitterData = TwitterInfoDataController()
+            ybData = YoutubeInfoDataController()
             self.spinner = SARMaterialDesignSpinner(frame: CGRect(x: self.view.frame.width/2 - 25,y: (self.view.frame.height)/2 - 25,width: 50,height: 50))
             self.view.addSubview(self.spinner)
             spinner.strokeColor =  UIColor.blue
             
             spinner.startAnimating()
             
-            var fbmenu = UIImage(named: "fab_sml")!
+          /*  var fbmenu = UIImage(named: "fab_sml")!
             fbmenu = self.setcolorImage(fbmenu, hexcolr: 0x3b5998)
             let menuItemHighlitedImage = UIImage()
             
             var newsmenu = UIImage(named: "fab_sml")!
-            newsmenu = self.setcolorImage(fbmenu, hexcolr: 0xFB852E)
+            newsmenu = self.setcolorImage(fbmenu, hexcolr: 0xBB0000)
             
             var tweetmenu = UIImage(named: "fab_sml")!
             tweetmenu = self.setcolorImage(fbmenu, hexcolr: 0x55acee)
             
             
             
-            let fbimage = UIImage(named: "fab_fb")!
-            let newsimage = UIImage(named: "fab_news")!
+            let fbimage = UIImage(named: "fab_pta")!
+            let newsimage = UIImage(named: "you")!
             let twitterimage = UIImage(named: "fab_tweet")!
             let starMenuItem1 = PathMenuItem(image: fbmenu, highlightedImage: menuItemHighlitedImage, contentImage: fbimage)
             
@@ -104,13 +91,13 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
              flowmenu.endRadius      = 70
              flowmenu.animationDuration = 0.5
              */
-            flowmenu.menuWholeAngle = CGFloat(Double.pi) - CGFloat(Double.pi/5)
-            flowmenu.rotateAngle    = -CGFloat(Double.pi/2) + CGFloat(Double.pi/8) * 1/2
+            flowmenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/5)
+            flowmenu.rotateAngle    = -CGFloat(M_PI_2) + CGFloat(M_PI/8) * 1/2
             flowmenu.timeOffset     = 0.0
             flowmenu.farRadius      = 90.0
             flowmenu.nearRadius     = 80.0
             flowmenu.endRadius      = 80.0
-            flowmenu.animationDuration = 0.5
+            flowmenu.animationDuration = 0.5*/
         }
         else
         {
@@ -120,9 +107,9 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         }
         
         
-        twitterTable.delegate = self
-        twitterTable.dataSource = self
-        self.navigationItem.title = "Twitter Feeds"
+        ybTable.delegate = self
+        ybTable.dataSource = self
+        self.navigationItem.title = "Youtube Feeds"
         let button:UIButton   = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))//[[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         button.setImage(UIImage(named: "home_g"), for: UIControlState())
         button.addTarget(self, action: #selector(self.gotoHome), for: .touchUpInside)
@@ -142,20 +129,8 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         menuButton.addTarget(self, action:#selector(self.menuButtonTouched(_:)), for:UIControlEvents.touchUpInside)
         menu = UIBarButtonItem(customView: menuButton)
         self.navigationItem.rightBarButtonItems = [menu]
-        NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "twitterdataReady"), object: nil)
-        /*if self.view.frame.origin.y >= 64
-        {
-            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            self.view.addSubview(self.flowmenu)
-            self.TwetterTableViewTopContraint.constant = 64
-        }
-        else
-        {
-            self.view.addSubview(self.flowmenu)
-        }*/
-    }
-    func menuButtonTouched(_ sender: AnyObject) {
-        showSideMenuView()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "YoutubedataReady"), object: nil)
+        //self.view.addSubview(self.flowmenu)
     }
     func setcolorImage(_ img:UIImage,hexcolr:Int)-> UIImage
     {
@@ -178,10 +153,10 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         //print("Select the index : \(idx)")
         if idx == 0
         {
-            flowmenu.handleTap()
-            //NSNotificationCenter.defaultCenter().postNotificationName("reloadFbSelected", object: self, userInfo: nil)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             
+            flowmenu.handleTap()
+            // NSNotificationCenter.defaultCenter().postNotificationName("reloadFbSelected", object: self, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             if appDelegate.facebookCount == 1
             {
@@ -199,22 +174,32 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 let fbview = self.storyboard?.instantiateViewController(withIdentifier: "FacebookViewController")
                 self.navigationController?.pushViewController(fbview!, animated: true)
             }
-            
-            flowmenu.contentImage = UIImage(named: "fab_more")
         }
         else if idx == 1
         {
-            flowmenu.handleTap()
-            
-            
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
-            let newsview = self.storyboard?.instantiateViewController(withIdentifier: "NewsAllViewController")
-            self.navigationController?.pushViewController(newsview!, animated: true)
+            flowmenu.contentImage = UIImage(named: "fab_more")
         }
         else
         {
-            flowmenu.contentImage = UIImage(named: "fab_more")
-            
+            flowmenu.handleTap()
+            //NSNotificationCenter.defaultCenter().postNotificationName("reloadTwitterSelected", object: self, userInfo: nil)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "reload"), object: self, userInfo: nil)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            if appDelegate.twitterCount == 1
+            {
+                let twitterlink = appDelegate.twitterlink
+                
+                let twittertimeline = self.storyboard?.instantiateViewController(withIdentifier: "TwitterTimelineTableViewController") as! TwitterTimelineTableViewController
+                //facebkweb.request = request
+                twittertimeline.screenName = twitterlink!
+                twittertimeline.isFromHome = true
+                self.navigationController?.pushViewController(twittertimeline, animated: false)
+            }
+            else
+            {
+                let twitterview = self.storyboard?.instantiateViewController(withIdentifier: "TwitterViewController")
+                self.navigationController?.pushViewController(twitterview!, animated: true)
+            }
         }
     }
     func pathMenuWillAnimateOpen(_ menu: PathMenu) {
@@ -238,70 +223,8 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         //print("Menu was closed!")
         //flowmenu.contentImage = UIImage(named: "fab_more")
     }
-    override func viewDidAppear(_ animated: Bool) {
-        appDelegate.SelectedOption = "TwitterViewController"
-        if self.view.frame.origin.y >= 64
-        {
-            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-           // self.view.addSubview(self.flowmenu)
-            self.TwetterTableViewTopContraint.constant = 64
-        }
-        else
-        {
-            self.TwetterTableViewTopContraint.constant = 0
-           // self.view.addSubview(self.flowmenu)
-        }
-        
-    }
-    func loadTableData()
-    {
-        DispatchQueue.main.async{
-            self.TwitterArray = self.twitterData.twitterArray
-            if self.twitterData.twitterArray.count == 0
-            {
-                DispatchQueue.main.async {
-                    self.view.bringSubview(toFront: self.Emptylabel)
-                    self.Emptylabel.alpha = 1
-                    self.spinner.stopAnimating()
-                }
-                
-            }
-            else
-            {
-                DispatchQueue.main.async {
-                    self.Emptylabel.alpha = 0
-                    if self.twitterData.twitterArray.count == 1
-                    {
-                        let twitterlink = (self.TwitterArray[0] as AnyObject).value(forKey: "link") as? String
-                        
-                        let twittertimeline = self.storyboard?.instantiateViewController(withIdentifier: "TwitterTimelineTableViewController") as! TwitterTimelineTableViewController
-                        twittertimeline.isFromHome = true
-                        //facebkweb.request = request
-                        twittertimeline.screenName = twitterlink
-                        self.navigationController?.pushViewController(twittertimeline, animated: false)
-                    }
-                    else
-                    {
-                        
-                        self.twitterTable.reloadData()
-                        self.spinner.stopAnimating()
-                        if self.view.frame.origin.y >= 64
-                        {
-                            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                            self.view.addSubview(self.flowmenu)
-                            self.TwetterTableViewTopContraint.constant = 64
-                        }
-                        else
-                        {
-                            self.TwetterTableViewTopContraint.constant = 0
-                            self.view.addSubview(self.flowmenu)
-                        }
-                    }
-                }
-                
-            }
-        }
-        
+    func menuButtonTouched(_ sender: AnyObject) {
+        showSideMenuView()
     }
     func loadAlert()
     {
@@ -322,6 +245,17 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    func loadTableData()
+    {
+        DispatchQueue.main.async{
+            self.YoutubeArray = self.ybData.youtubeArray
+            self.isValuePresent = self.ybData.isValuePresent
+            self.ybTable.reloadData()
+            self.spinner.stopAnimating()
+        }
+        
+    }
+    
     func gotoHome()
     {
         //let home = self.storyboard?.instantiateViewControllerWithIdentifier("MyNavigationController") as! MyNavigationController
@@ -338,16 +272,18 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
             deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
             execute: closure
         )
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+1, execute: closure)
     }
-     func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TwitterArray.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.isValuePresent == true
+        {
+            return YoutubeArray.count
+        }
+        return 0
     }
-     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.iPhone == true
         {
             return 150.0
@@ -358,10 +294,10 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         }
         return 150.0
     }
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:TwitterItemCell! = tableView.dequeueReusableCell(withIdentifier: "TwitterCell") as! TwitterItemCell
-        cell.cellBlueFbTitle.text = (self.TwitterArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "desc") as? String
-        cell.cellWhiteFbTitle.text = (self.TwitterArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "title") as? String
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:YoutubeTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "ybCell") as! YoutubeTableViewCell
+        cell.cellBlueFbTitle.text = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "desc") as? String
+        cell.cellWhiteFbTitle.text = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "title") as? String
         if self.iPhone == true
         {
             if UIScreen.main.bounds.height == 480.0
@@ -407,7 +343,7 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 cell.cellWhiteFbTitle.font = UIFont.systemFont(ofSize: 14)
             }
         }
-        let img = (self.TwitterArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "imagepath") as! String
+        let img = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "imagepath") as! String
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let mainUrl:NSMutableString = NSMutableString(string: appDelegate.mainUrlString)
         
@@ -444,7 +380,7 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 // Update the cell
                 DispatchQueue.main.async {
                     let image = UIImage(data: data!)
-                    if let currentcell:TwitterItemCell = cell {
+                    if let currentcell:YoutubeTableViewCell = cell {
                         
                         //Do UI stuff here
                         
@@ -487,7 +423,7 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
                 // Update the cell
                 DispatchQueue.main.async {
                     let image = UIImage(data: data!)
-                    if let currentcell:TwitterItemCell = cell {
+                    if let currentcell:YoutubeTableViewCell = cell {
                         
                         //Do UI stuff here
                         
@@ -499,6 +435,7 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
             }
         })
         bigtask.resume()
+        
         
         //cell.cellbackgroundImage.image = bigimagearray[indexPath.row]
         /* let gradientLayer : CAGradientLayer = CAGradientLayer();
@@ -519,15 +456,33 @@ class TwitterViewController: UIViewController,ENSideMenuDelegate,PathMenuDelegat
         if self.sideMenuController()?.sideMenu?.isMenuOpen == true
         {
             hideSideMenuView()
+            let urlString = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "link") as? String
+            if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
+            {
+                UIApplication.shared.openURL(URL(string:"youtube://\(urlString!)" )!)
+            }
+            else
+            {
+                if UIApplication.shared.canOpenURL(URL(string:"\(urlString!)" )!)
+                {
+                    UIApplication.shared.openURL(URL(string:"\(urlString!)" )!)
+                }
+            }
         }
         else
         {
-            let twitterlink = (self.TwitterArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "link") as? String
-            
-            let twittertimeline = self.storyboard?.instantiateViewController(withIdentifier: "TwitterTimelineTableViewController") as! TwitterTimelineTableViewController
-            //facebkweb.request = request
-            twittertimeline.screenName = twitterlink
-            self.navigationController?.pushViewController(twittertimeline, animated: false)
+            let urlString = (self.YoutubeArray[(indexPath as NSIndexPath).row] as AnyObject).value(forKey: "link") as? String
+            if UIApplication.shared.canOpenURL(URL(string:"youtube://\(urlString!)" )!)
+            {
+                UIApplication.shared.openURL(URL(string:"youtube://\(urlString!)" )!)
+            }
+            else
+            {
+                if UIApplication.shared.canOpenURL(URL(string:"\(urlString!)" )!)
+                {
+                    UIApplication.shared.openURL(URL(string:"\(urlString!)" )!)
+                }
+            }
         }
     }
 }

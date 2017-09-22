@@ -56,9 +56,12 @@ class EmergencyNumberViewController: UIViewController,UITableViewDelegate,UITabl
     @IBOutlet weak var emergencyView5: UIView!
     @IBOutlet weak var emergencyView6: UIView!
     var Emptylabel:UILabel!
+    var appDelegate:AppDelegate!
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "EmergencyNumberViewController"
         DispatchQueue.main.async {
             self.Emptylabel = UILabel(frame: CGRect(x: 0, y: 400, width: UIScreen.main.bounds.width, height: 50))
             self.Emptylabel.textColor = UIColor.black

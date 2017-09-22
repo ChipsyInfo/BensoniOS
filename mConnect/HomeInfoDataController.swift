@@ -15,15 +15,19 @@ class HomeInfoDataController: NSObject {
     var bannerArray:NSMutableArray! = NSMutableArray()
     var facebookCount:Int! = 0
     var twitterCount:Int! = 0
+    var youtubeCount:Int! = 0
     
     var facebookListarray:NSMutableArray! = NSMutableArray()
     var twitterListarray:NSMutableArray! = NSMutableArray()
+    var youtubeListarray:NSMutableArray! = NSMutableArray()
     
     var fblink:String!
     var twitterlink:String!
+    var youtubelink:String!
     
     var facebookList:FacebookHomeInfo!
     var twitterList:TwitterHomeInfo!
+    var youtubeList:YoutubeCountInfo!
     
     var news:NewsData!
     var events:EventsData!
@@ -79,6 +83,14 @@ class HomeInfoDataController: NSObject {
                         
                         self.twitterList = TwitterHomeInfo(count: self.twitterCount, link: self.twitterlink)
                         self.twitterListarray.add(self.twitterList)
+                    }
+                    if let homeyoutubeinfo = responseInfo["youtube"] as? NSDictionary
+                    {
+                        self.youtubeCount =  homeyoutubeinfo["count"] as! Int
+                        self.youtubelink = homeyoutubeinfo["link"] as! String
+                        
+                        self.youtubeList = YoutubeCountInfo(count: self.youtubeCount, link: self.youtubelink)
+                        self.youtubeListarray.add(self.youtubeList)
                     }
                     if let homenewsinfo = responseInfo["news"] as? [[String: AnyObject]]
                     {
@@ -160,6 +172,14 @@ class HomeInfoDataController: NSObject {
                 {
                     NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadTwitterCount"), object: self, userInfo: ["number":self.twitterCount,"link":self.twitterlink])
                     
+                }
+                if self.youtubeCount == 1
+                {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadYoutubeCount"), object: self, userInfo: ["number":self.youtubeCount,"link":self.youtubelink])
+                }
+                else
+                {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "reloadYoutubeCount"), object: self, userInfo: ["number":self.youtubeCount,"link":self.youtubelink])
                 }
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 appDelegate.facebookCount = self.facebookCount

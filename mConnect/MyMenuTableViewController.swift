@@ -33,6 +33,7 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
     
     var fblink:String?
     var twitterlink:String?
+    var AppDelegateData:AppDelegate!
     @IBOutlet weak var ConnectingComunityLabel: UILabel!
     
     var iPhone: Bool {
@@ -132,6 +133,7 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableFacebookCount(_:)), name: NSNotification.Name(rawValue: "reloadFacebookCount"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableTwitterCount(_:)), name: NSNotification.Name(rawValue: "reloadTwitterCount"), object: nil)
+        AppDelegateData = UIApplication.shared.delegate as! AppDelegate!
         
     }
     func setnewImage(_ img:UIImage)-> UIImage
@@ -397,13 +399,13 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                     youTubeImage = self.setcolorImage(UIImage(named: "you")!)
                     cell.menuItemLabel.textColor = UIColor(hex: 0x3F51B5)
                     cell.menuItemIconImageview.image = youTubeImage
-                    cell.menuItemLabel?.text = "Youtube"
+                    cell.menuItemLabel?.text = "YouTube"
                 }
                 else
                 {
                     youTubeImage = self.setnewImage(UIImage(named: "you")!)
                     cell.menuItemIconImageview.image = youTubeImage
-                    cell.menuItemLabel?.text = "Youtube"
+                    cell.menuItemLabel?.text = "YouTube"
                     cell.menuItemLabel.textColor = UIColor(hex: 0x555555)
                 }
                 break
@@ -603,7 +605,11 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                     delay(0.8)
                     {
-                        self.sideMenuController()?.setContentViewController(destViewController)
+                        if self.AppDelegateData.SelectedOption != "EventsAllViewController"
+                        {
+                            self.sideMenuController()?.setContentViewController(destViewController)
+                        }
+                        
                     }
                 }
                 
@@ -640,7 +646,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                     delay(0.8)
                     {
-                        self.sideMenuController()?.setContentViewController(destViewController)
+                        if self.AppDelegateData.SelectedOption != "NewsAllViewController"
+                        {
+                            self.sideMenuController()?.setContentViewController(destViewController)
+                        }
                     }
                 }
                 
@@ -683,7 +692,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                         
                         delay(0.8)
                         {
+                            if self.AppDelegateData.SelectedOption != "FacebookWebViewController"
+                            {
                             self.sideMenuController()?.setContentViewController(destViewController)
+                            }
                         }
                         
                     }
@@ -695,7 +707,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                     {
                         delay(0.8)
                         {
+                            if self.AppDelegateData.SelectedOption != "FacebookViewController"
+                            {
                             self.sideMenuController()?.setContentViewController(destViewController)
+                            }
                         }
                     }
                 }
@@ -746,7 +761,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                         
                         delay(0.8)
                         {
+                            if self.AppDelegateData.SelectedOption != "MoveToTwitterViewController"
+                            {
                             self.sideMenuController()?.setContentViewController(destViewController)
+                            }
                         }
                         
                     }
@@ -758,7 +776,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                     {
                         delay(0.8)
                         {
+                            if self.AppDelegateData.SelectedOption != "TwitterViewController"
+                            {
                             self.sideMenuController()?.setContentViewController(destViewController)
+                            }
                         }
                     }
                 }
@@ -793,27 +814,71 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 self.isTermsOpened = false
                 
             
-                let YoutubeQuery =  "Your Query"
-                let escapedYoutubeQuery = YoutubeQuery.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-                let appURL = NSURL(string: "https://www.youtube.com/user/TownofMorrisvilleNC")!
-                let webURL = NSURL(string: "https://www.youtube.com/user/TownofMorrisvilleNC")!
-                let application = UIApplication.shared
                 
-                self.tableView.reloadData()
-                if application.canOpenURL(appURL as URL) {
-                    if #available(iOS 10.0, *) {
-                        application.open(appURL as URL)
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                } else {
-                    // if Youtube app is not installed, open URL inside Safari
-                    if #available(iOS 10.0, *) {
-                        application.open(webURL as URL)
-                    } else {
-                        // Fallback on earlier versions
+
+                if AppDelegateData.YouTubeArrayCountHome! > 1
+                {
+                    destViewController = mainStoryboard.instantiateViewController(withIdentifier: "YoutubeViewController")
+                    if sideMenuController()?.sideMenu?.isMenuOpen != true
+                    {
+                        delay(0.8)
+                        {
+                            if self.AppDelegateData.SelectedOption != "YoutubeViewController"
+                            {
+                            self.sideMenuController()?.setContentViewController(destViewController)
+                            }
+                        }
                     }
                 }
+                else if AppDelegateData.YouTubeArrayCountHome == 1
+                {
+                    print(AppDelegateData.YouTubeArrayLinkHome!)
+                    let appURL = NSURL(string: AppDelegateData.YouTubeArrayLinkHome!)!
+                    let webURL = NSURL(string: AppDelegateData.YouTubeArrayLinkHome!)!
+                    let application = UIApplication.shared
+                    
+                    self.tableView.reloadData()
+                    if application.canOpenURL(appURL as URL) {
+                        if #available(iOS 10.0, *) {
+                            application.open(appURL as URL)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    } else {
+                        // if Youtube app is not installed, open URL inside Safari
+                        if #available(iOS 10.0, *) {
+                            application.open(webURL as URL)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    }
+                }
+                else if AppDelegateData.YouTubeArrayCountHome! == 0
+                {
+                    let YoutubeQuery =  "Your Query"
+                    let escapedYoutubeQuery = YoutubeQuery.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+                    let appURL = NSURL(string: "https://www.youtube.com/user/TownofMorrisvilleNC")!
+                    let webURL = NSURL(string: "https://www.youtube.com/user/TownofMorrisvilleNC")!
+                    let application = UIApplication.shared
+                    
+                    self.tableView.reloadData()
+                    if application.canOpenURL(appURL as URL) {
+                        if #available(iOS 10.0, *) {
+                            application.open(appURL as URL)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    } else {
+                        // if Youtube app is not installed, open URL inside Safari
+                        if #available(iOS 10.0, *) {
+                            application.open(webURL as URL)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    }
+                }
+                
+                self.tableView.reloadData()
                 
                 break
             case 5:
@@ -833,7 +898,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                     delay(0.8)
                     {
+                        if self.AppDelegateData.SelectedOption != "EmergencyNumberViewController"
+                        {
                         self.sideMenuController()?.setContentViewController(destViewController)
+                        }
                     }
                 }
                 
@@ -869,7 +937,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                     delay(0.8)
                     {
+                        if self.AppDelegateData.SelectedOption != "CouncilMemberViewController"
+                        {
                         self.sideMenuController()?.setContentViewController(destViewController)
+                        }
                     }
                 }
                 
@@ -913,7 +984,11 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                     delay(0.8)
                     {
+                        
+                        if self.AppDelegateData.SelectedOption != "ContactViewController"
+                        {
                         self.sideMenuController()?.setContentViewController(destViewController)
+                        }
                     }
                 }
                 
@@ -949,7 +1024,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                 delay(0.8)
                 {
+                    if self.AppDelegateData.SelectedOption != "PrivacyPolicyViewController"
+                    {
                 self.sideMenuController()?.setContentViewController(destViewController)
+                    }
                 }
                 }
                 
@@ -986,7 +1064,10 @@ class MyMenuTableViewController: UITableViewController,UIPopoverPresentationCont
                 {
                 delay(0.8)
                 {
+                    if self.AppDelegateData.SelectedOption != "TermsViewController"
+                    {
                 self.sideMenuController()?.setContentViewController(destViewController)
+                    }
                 }
                 }
                 

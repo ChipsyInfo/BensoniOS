@@ -18,12 +18,14 @@ class CouncilMemberViewController: UIViewController,UITableViewDelegate,UITableV
     var reachable:Reachability!
     var CouncilMemberArray:NSMutableArray! = NSMutableArray()
     var CommitteeInfoarray:NSMutableArray! = NSMutableArray()
-    
+    var appDelegate:AppDelegate!
     @IBOutlet weak var councilViewTable: UITableView!
     
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.appDelegate.SelectedOption = "CouncilMemberViewController"
        if reachable.isReachable == true {
             //print("Internet connection OK")
             
@@ -65,6 +67,9 @@ class CouncilMemberViewController: UIViewController,UITableViewDelegate,UITableV
         menu = UIBarButtonItem(customView: menuButton)
         self.navigationItem.rightBarButtonItems = [menu]
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "councilmemberAllDataReady"), object: nil)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.appDelegate.SelectedOption = "CouncilMemberViewController"
     }
     func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()

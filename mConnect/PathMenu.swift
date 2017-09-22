@@ -54,9 +54,9 @@ open class PathMenu: UIView, PathMenuItemDelegate,CAAnimationDelegate {
     
     struct Angle {
         static var DefaultRotation: CGFloat   = 0.0
-        static var MenuWholeRotation: CGFloat = CGFloat(M_PI * 2)
-        static var ExpandRotation: CGFloat    = -CGFloat(M_PI * 2)
-        static var CloseRotation: CGFloat     = CGFloat(M_PI * 2)
+        static var MenuWholeRotation: CGFloat = CGFloat(Double.pi * 2)
+        static var ExpandRotation: CGFloat    = -CGFloat(Double.pi * 2)
+        static var CloseRotation: CGFloat     = CGFloat(Double.pi * 2)
     }
     
     public enum State {
@@ -239,7 +239,7 @@ open class PathMenu: UIView, PathMenuItemDelegate,CAAnimationDelegate {
         motionState = .close
         delegate?.pathMenuWillAnimateClose(self)
         
-        let angle = motionState == .expand ? CGFloat(M_PI_4) + CGFloat(M_PI) : 0.0
+        let angle = motionState == .expand ? CGFloat(Double.pi/4) + CGFloat(Double.pi) : 0.0
         UIView.animate(withDuration: Double(startMenuAnimationDuration!), animations: { [weak self] () -> Void in
             self?.startButton?.transform = CGAffineTransform(rotationAngle: angle)
             })
@@ -264,7 +264,7 @@ open class PathMenu: UIView, PathMenuItemDelegate,CAAnimationDelegate {
             selector = #selector(PathMenu.expand)
             flag = 0
             motionState = .expand
-            angle = CGFloat(M_PI_4) + CGFloat(M_PI)
+            angle = CGFloat(Double.pi/4) + CGFloat(Double.pi)
             ButtonOpen = true
         case .expand:
             
@@ -390,7 +390,7 @@ open class PathMenu: UIView, PathMenuItemDelegate,CAAnimationDelegate {
             item.tag = 1000 + index
             item.startPoint = startPoint
             
-            if menuWholeAngle >= CGFloat(M_PI) * 2 {
+            if menuWholeAngle >= CGFloat(Double.pi) * 2 {
                 menuWholeAngle = menuWholeAngle! - menuWholeAngle! / CGFloat(count)
             }
             

@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
     var eventreminddict:NSMutableDictionary! = [:]
     var window: UIWindow?
     var mainUrlString:String! = "http://api.mconnect.ideationwizard.com"
+    var YouTubeArrayCountHome: Int?
+    var YouTubeArrayLinkHome:String?
+    var SelectedOption:String? = ""
     var eventidarray:NSMutableArray! = NSMutableArray()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
@@ -140,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
     func registrationHandler(_ registrationToken: String?, error: Error?) {
         if (registrationToken != nil) {
             self.registrationToken = registrationToken
-            print("Registration Token: \(registrationToken)")
+            //print("Registration Token: \(registrationToken)")
             
             let userInfo = ["registrationToken": registrationToken]
             let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/adddeviceid")!
@@ -187,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
             NotificationCenter.default.post(
                 name: Notification.Name(rawValue: self.registrationKey), object: nil, userInfo: userInfo)
         } else {
-            print("Registration to GCM failed with error: \(error?.localizedDescription)")
+           // print("Registration to GCM failed with error: \(error?.localizedDescription)")
             let userInfo = ["error": error?.localizedDescription]
             NotificationCenter.default.post(
                 name: Notification.Name(rawValue: self.registrationKey), object: nil, userInfo: userInfo)

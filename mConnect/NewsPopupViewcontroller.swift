@@ -43,7 +43,7 @@ class NewsPopupViewcontroller: UIViewController,UIScrollViewDelegate {
         self.reportLabel.text = newsReportString
         newsDesc.sizeToFit()
         UIView.animate(withDuration: 2.0, animations: {
-            self.arrowImageview.transform = CGAffineTransform(rotationAngle: (90.0 * CGFloat(M_PI)) / 180.0)
+            self.arrowImageview.transform = CGAffineTransform(rotationAngle: (90.0 * CGFloat(Double.pi)) / 180.0)
         })
         closeButton.addDropShadowToView(closeButton)
         shareButton.layer.cornerRadius = 15

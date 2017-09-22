@@ -12,10 +12,13 @@ class TermsViewController: UIViewController,ENSideMenuDelegate {
     var  menuButton:UIButton!
     var  menu:UIBarButtonItem!
     var reachable:Reachability!
+    var appDelegate:AppDelegate!
     @IBOutlet weak var TermsWebView: UIWebView!
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "TermsViewController"
         TermsWebView.scrollView.bounces = false
         TermsWebView.scrollView.showsHorizontalScrollIndicator = false
         TermsWebView.scrollView.showsVerticalScrollIndicator = false

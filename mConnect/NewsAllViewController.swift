@@ -21,6 +21,7 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var spinner:SARMaterialDesignSpinner!
     var reachable:Reachability!
     var Emptylabel:UILabel!
+    var appDelegate:AppDelegate!
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }
@@ -28,12 +29,17 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     @IBOutlet weak var newsAllTable: UITableView!
+    @IBOutlet weak var NewsAllTableViewTopConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         
     }
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "NewsAllViewController"
+        //self.edgesForExtendedLayout = []
         DispatchQueue.main.async {
             self.Emptylabel = UILabel(frame: CGRect(x: 0, y: (UIScreen.main.bounds.height/2)-(50/2), width: UIScreen.main.bounds.width, height: 50))
             self.Emptylabel.textColor = UIColor.black
@@ -133,8 +139,8 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
          flowmenu.endRadius      = 70
          flowmenu.animationDuration = 0.5
          */
-        flowmenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/5)
-        flowmenu.rotateAngle    = -CGFloat(M_PI_2) + CGFloat(M_PI/8) * 1/2
+        flowmenu.menuWholeAngle = CGFloat(Double.pi) - CGFloat(Double.pi/5)
+        flowmenu.rotateAngle    = -CGFloat(Double.pi/2) + CGFloat(Double.pi/8) * 1/2
         flowmenu.timeOffset     = 0.0
         flowmenu.farRadius      = 90.0
         flowmenu.nearRadius     = 80.0
@@ -259,7 +265,18 @@ class NewsAllViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 DispatchQueue.main.async {
                     self.Emptylabel.alpha = 0
                     self.newsAllTable.reloadData()
-                    self.view.addSubview(self.flowmenu)
+                    if self.view.frame.origin.y >= 64
+                    {
+                        self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                        self.view.addSubview(self.flowmenu)
+                        self.NewsAllTableViewTopConstraint.constant = 64
+                        
+                        
+                    }
+                    else
+                    {
+                        self.view.addSubview(self.flowmenu)
+                    }
                     //self.flowmenu.hidden = true
                 }
             }

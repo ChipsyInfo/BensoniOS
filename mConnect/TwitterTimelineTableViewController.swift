@@ -15,9 +15,11 @@ class TwitterTimelineTableViewController: TWTRTimelineViewController,ENSideMenuD
     var backimg:UIImage!
 
     var isFromHome:Bool! = false
-    
+    var appDelegate:AppDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "TwitterViewDetailController"
         // Add a button to the center of the view to show the timeline
         self.navigationItem.title = "Twitter Feeds"
         if self.isFromHome == false

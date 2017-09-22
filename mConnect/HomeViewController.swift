@@ -15,6 +15,7 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
     var homeData:HomeInfoDataController!
     var eventsDataArray:NSArray!
     var newsDataArray:NSArray!
+    var YouTubeDataArray:NSArray!
     var flowmenu:PathMenu!
     var bannerArray:NSArray!
     var twitterlink:String!
@@ -24,6 +25,8 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
     var  menu:UIBarButtonItem!
     var appDelegate:AppDelegate!
     var reachable:Reachability!
+    var ybHomeData:YoutubeInfoDataController!
+    var AppDelegateData:AppDelegate!
     //var spinner:SARMaterialDesignSpinner!
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
@@ -44,6 +47,7 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        //ybHomeData = YoutubeInfoDataController()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.accordionVC = appDelegate.accordionVC
         self.accordionVC.delegate = self
@@ -92,8 +96,8 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
          flowmenu.endRadius      = 70
          flowmenu.animationDuration = 0.5
          */
-        flowmenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/5)
-        flowmenu.rotateAngle    = -CGFloat(M_PI_2) + CGFloat(M_PI/8) * 1/2
+        flowmenu.menuWholeAngle = CGFloat(Double.pi) - CGFloat(Double.pi/5)
+        flowmenu.rotateAngle    = -CGFloat(Double.pi/2) + CGFloat(Double.pi/8) * 1/2
         flowmenu.timeOffset     = 0.0
         flowmenu.farRadius      = 90.0
         flowmenu.nearRadius     = 80.0
@@ -246,6 +250,10 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
         NotificationCenter.default.addObserver(self, selector: #selector(self.displayFlowingActionMenu), name: NSNotification.Name(rawValue: "displayflowingbuttonmenu"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideFlowingActionMenu), name: NSNotification.Name(rawValue: "hideflowingbuttonmenu"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableTwitterCount(_:)), name: NSNotification.Name(rawValue: "reloadTwitterCount"), object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableYoutubeCount(_:)), name: NSNotification.Name(rawValue: "reloadYoutubeCount"), object: nil)
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.loadYoutubeData), name: NSNotification.Name(rawValue: "YoutubedataReady"), object: nil)
+        AppDelegateData = UIApplication.shared.delegate as! AppDelegate!
     }
     
     
@@ -254,7 +262,18 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func loadYoutubeData()
+    {
+        DispatchQueue.main.async {
+            print(self.ybHomeData.youtubeArray.count)
+            self.AppDelegateData.YouTubeArrayCountHome = self.ybHomeData.youtubeArray.count
+            self.YouTubeDataArray = self.ybHomeData.youtubeArray
+            let YoutubeListinfo = self.YouTubeDataArray[0] as! YoutubeInfo
+            self.AppDelegateData.YouTubeArrayLinkHome = YoutubeListinfo.link
+            print(YoutubeListinfo.link)
+            
+        }
+    }
     @IBAction func menuButtonTouched(_ sender: AnyObject) {
         showSideMenuView()
     }
@@ -288,6 +307,16 @@ class HomeViewController: UIViewController,ENSideMenuDelegate,UIPopoverPresentat
             //self.tableView.reloadData()
         }
     }
+    func reloadTableYoutubeCount(_ notification:Notification){
+        DispatchQueue.main.async {
+            let userInfo = notification.userInfo! as [AnyHashable : Any]
+            //self.twitterCount = userInfo["number"] as! Int
+            self.AppDelegateData.YouTubeArrayCountHome = userInfo["number"] as? Int
+            self.AppDelegateData.YouTubeArrayLinkHome = userInfo["link"] as? String
+            //self.tableView.reloadData()
+        }
+    }
+    
     func moveToScreen(_ index: Int) {
         if index == 1
         {

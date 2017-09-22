@@ -18,10 +18,13 @@ class FacebookWebViewController: UIViewController,UIWebViewDelegate,ENSideMenuDe
     var backimg:UIImage!
     var currentURL:String!
     var checkstring:String!
+    var appDelegate:AppDelegate!
     @IBOutlet weak var facebookWebView: UIWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.appDelegate.SelectedOption = "FacebookWebViewController"
         checkstring = request.url?.absoluteString
         checkstring = checkstring.replacingOccurrences(of: "www", with: "m")
         facebookWebView.loadRequest(request as URLRequest)

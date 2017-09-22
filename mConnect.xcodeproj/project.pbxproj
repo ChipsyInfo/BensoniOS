@@ -78,6 +78,11 @@
 		0A9393B71DB4AC3D00A682F0 /* TwitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9393B51DB4AC3D00A682F0 /* TwitterViewController.swift */; };
 		0AA5A99E1D5AF48A007110DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AA5A99C1D5AF48A007110DC /* LaunchScreen.storyboard */; };
 		0AB3B3B21D9E826E006221CE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3B3B11D9E826E006221CE /* Reachability.swift */; };
+		54151BA51F74E37100960AE7 /* YoutubeCountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54151BA41F74E37100960AE7 /* YoutubeCountInfo.swift */; };
+		54435FC61F73839100564589 /* YoutubeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54435FC51F73839100564589 /* YoutubeTableViewCell.swift */; };
+		54435FC81F7383DE00564589 /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54435FC71F7383DE00564589 /* YoutubeViewController.swift */; };
+		54435FCB1F73844C00564589 /* YoutubeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54435FC91F73844C00564589 /* YoutubeInfo.swift */; };
+		54435FCC1F73844C00564589 /* YoutubeInfoDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54435FCA1F73844C00564589 /* YoutubeInfoDataController.swift */; };
 		600B2059A821D5FB4743BB2B /* Pods_mConnect.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D870DF33198C831CFC6FA970 /* Pods_mConnect.framework */; };
 /* End PBXBuildFile section */
 
@@ -158,6 +163,11 @@
 		0AA5A99D1D5AF48A007110DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mConnect/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		0AB3B3B11D9E826E006221CE /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = mConnect/Reachability.swift; sourceTree = SOURCE_ROOT; };
 		0AE57E5F1D646A6E002E4166 /* mConnect-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mConnect-Bridging-Header.h"; sourceTree = "<group>"; };
+		54151BA41F74E37100960AE7 /* YoutubeCountInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeCountInfo.swift; sourceTree = SOURCE_ROOT; };
+		54435FC51F73839100564589 /* YoutubeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		54435FC71F7383DE00564589 /* YoutubeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = SOURCE_ROOT; };
+		54435FC91F73844C00564589 /* YoutubeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeInfo.swift; sourceTree = SOURCE_ROOT; };
+		54435FCA1F73844C00564589 /* YoutubeInfoDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeInfoDataController.swift; sourceTree = SOURCE_ROOT; };
 		C68B5082DF11C81893EC9671 /* Pods-mConnect.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mConnect.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mConnect/Pods-mConnect.debug.xcconfig"; sourceTree = "<group>"; };
 		D870DF33198C831CFC6FA970 /* Pods_mConnect.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mConnect.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +202,7 @@
 				0A86DC8D1D5AEF56007B7BEA /* CouncilViewItemCell.swift */,
 				0A86DC8B1D5AEF56007B7BEA /* GradientView.swift */,
 				0A86DC921D5AEF56007B7BEA /* BWGradientView.swift */,
+				54435FC51F73839100564589 /* YoutubeTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -221,6 +232,7 @@
 				0A17FEAF1D5B2F27009F0ED9 /* ContactViewController.swift */,
 				0A86DCB11D5AF249007B7BEA /* PrivacyPolicyViewController.swift */,
 				0A86DCB01D5AF249007B7BEA /* TermsViewController.swift */,
+				54435FC71F7383DE00564589 /* YoutubeViewController.swift */,
 				0AE57E5F1D646A6E002E4166 /* mConnect-Bridging-Header.h */,
 			);
 			name = Controllers;
@@ -249,6 +261,9 @@
 				0A86DC6F1D5AEED4007B7BEA /* TwitterInfoDataController.swift */,
 				0A86DC711D5AEED4007B7BEA /* FacebookInfoDataController.swift */,
 				0A86DC671D5AEED4007B7BEA /* EventsCategoryDataController.swift */,
+				54435FC91F73844C00564589 /* YoutubeInfo.swift */,
+				54435FCA1F73844C00564589 /* YoutubeInfoDataController.swift */,
+				54151BA41F74E37100960AE7 /* YoutubeCountInfo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -495,6 +510,7 @@
 				0A86DC951D5AEF56007B7BEA /* EventsAllCell.swift in Sources */,
 				0A86DC9A1D5AEF56007B7BEA /* FacebookItemCell.swift in Sources */,
 				0A17FEB01D5B2F27009F0ED9 /* ContactViewController.swift in Sources */,
+				54435FCB1F73844C00564589 /* YoutubeInfo.swift in Sources */,
 				0A86DC7A1D5AEED4007B7BEA /* EventsAllInfoDataController.swift in Sources */,
 				0A86DCC71D5AF249007B7BEA /* FacebookWebViewController.swift in Sources */,
 				0A86DC801D5AEED4007B7BEA /* TwitterInfoDataController.swift in Sources */,
@@ -526,6 +542,7 @@
 				0A86DC581D5AECFE007B7BEA /* MaterialColors.swift in Sources */,
 				0A86DCBA1D5AF249007B7BEA /* NewsPopupViewcontroller.swift in Sources */,
 				0A86DC851D5AEED4007B7BEA /* NewsData.swift in Sources */,
+				54435FC81F7383DE00564589 /* YoutubeViewController.swift in Sources */,
 				0A86DC9D1D5AEF56007B7BEA /* NewsHomeCell.swift in Sources */,
 				0A499B641D86E04200AF5B91 /* EmergencyCategoryInfo.swift in Sources */,
 				0A86DCC01D5AF249007B7BEA /* NewsHomeTableViewController.swift in Sources */,
@@ -533,11 +550,13 @@
 				0A86DCBC1D5AF249007B7BEA /* CouncilMemberViewController.swift in Sources */,
 				0A86DC7B1D5AEED4007B7BEA /* EventsData.swift in Sources */,
 				0A86DC831D5AEED4007B7BEA /* EmergencyInfo.swift in Sources */,
+				54435FCC1F73844C00564589 /* YoutubeInfoDataController.swift in Sources */,
 				0A86DC571D5AECFE007B7BEA /* SARMaterialDesignSpinner.swift in Sources */,
 				0A86DCC31D5AF249007B7BEA /* EventsHomeTableViewController.swift in Sources */,
 				0A86DCBD1D5AF249007B7BEA /* MemberDetailViewController.swift in Sources */,
 				0A86DCB81D5AF249007B7BEA /* HomeViewController.swift in Sources */,
 				0A86DC651D5AEDF6007B7BEA /* ENSideMenuNavigationController.swift in Sources */,
+				54151BA51F74E37100960AE7 /* YoutubeCountInfo.swift in Sources */,
 				0A86DCBB1D5AF249007B7BEA /* NewsAllViewController.swift in Sources */,
 				0A86DCC61D5AF249007B7BEA /* EmergencyNumberViewController.swift in Sources */,
 				0A86DC861D5AEED4007B7BEA /* FacebookInfo.swift in Sources */,
@@ -552,6 +571,7 @@
 				0A86DCB71D5AF249007B7BEA /* EventPopUpViewController.swift in Sources */,
 				0A69B30B1E331C7400A201D6 /* TwitterHomeInfo.swift in Sources */,
 				0A86DCB51D5AF249007B7BEA /* EventsAllViewController.swift in Sources */,
+				54435FC61F73839100564589 /* YoutubeTableViewCell.swift in Sources */,
 				0A86DC841D5AEED4007B7BEA /* TwitterInfo.swift in Sources */,
 				0A86DC7C1D5AEED4007B7BEA /* HomeInfoDataController.swift in Sources */,
 			);

@@ -22,7 +22,10 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
     var FacebookArray:NSArray! = NSArray()
     var reachable:Reachability!
     var Emptylabel:UILabel!
+    var appDelegate:AppDelegate!
     @IBOutlet var fbTable: UITableView!
+    @IBOutlet weak var FacebookTableViewTopConstraint: NSLayoutConstraint!
+    
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }
@@ -35,6 +38,8 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "FacebookViewController"
         DispatchQueue.main.async {
             self.Emptylabel = UILabel(frame: CGRect(x: 0, y: (UIScreen.main.bounds.height/2)-(50/2), width: UIScreen.main.bounds.width, height: 50))
             self.Emptylabel.textColor = UIColor.black
@@ -101,8 +106,8 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
              flowmenu.endRadius      = 70
              flowmenu.animationDuration = 0.5
              */
-            flowmenu.menuWholeAngle = CGFloat(M_PI) - CGFloat(M_PI/5)
-            flowmenu.rotateAngle    = -CGFloat(M_PI_2) + CGFloat(M_PI/8) * 1/2
+            flowmenu.menuWholeAngle = CGFloat(Double.pi) - CGFloat(Double.pi/5)
+            flowmenu.rotateAngle    = -CGFloat(Double.pi/2) + CGFloat(Double.pi/8) * 1/2
             flowmenu.timeOffset     = 0.0
             flowmenu.farRadius      = 90.0
             flowmenu.nearRadius     = 80.0
@@ -140,7 +145,16 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
         menu = UIBarButtonItem(customView: menuButton)
         self.navigationItem.rightBarButtonItems = [menu]
         NotificationCenter.default.addObserver(self, selector: #selector(self.loadTableData),name:NSNotification.Name(rawValue: "FacebookdataReady"), object: nil)
-        self.view.addSubview(self.flowmenu)
+       /* if self.view.frame.origin.y >= 64
+        {
+            self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            self.view.addSubview(self.flowmenu)
+            FacebookTableViewTopConstraint.constant = 64
+        }
+        else
+        {
+            self.view.addSubview(self.flowmenu)
+        }*/
     }
     func setcolorImage(_ img:UIImage,hexcolr:Int)-> UIImage
     {
@@ -274,6 +288,16 @@ class FacebookViewController: UIViewController,ENSideMenuDelegate,PathMenuDelega
                     self.isValuePresent = self.fbData.isValuePresent
                     self.fbTable.reloadData()
                     self.spinner.stopAnimating()
+                    if self.view.frame.origin.y >= 64
+                    {
+                        self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                        self.view.addSubview(self.flowmenu)
+                        self.FacebookTableViewTopConstraint.constant = 64
+                    }
+                    else
+                    {
+                        self.view.addSubview(self.flowmenu)
+                    }
                 }
             }
         }

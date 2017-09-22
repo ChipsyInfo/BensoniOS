@@ -48,8 +48,11 @@ class MemberDetailViewController: UIViewController,ENSideMenuDelegate,MFMailComp
     @IBOutlet weak var rightColorView: UIView!
     @IBOutlet weak var callView: UIView!
     @IBOutlet weak var mailView: UIView!
+    var appDelegate:AppDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.appDelegate.SelectedOption = "MemberDetailViewController"
         UIView.animate(withDuration: 1.0, delay: 0.0, options:[], animations: {
             self.updateRightView()
             self.updateLeftView()

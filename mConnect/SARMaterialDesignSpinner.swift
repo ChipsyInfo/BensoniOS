@@ -63,7 +63,7 @@ class SARMaterialDesignSpinner: UIView {
         let center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         let radius = min(self.bounds.width / 2, self.bounds.height / 2) - self.progressLayer.lineWidth / 2
         let startAngle: CGFloat = 0
-        let endAngle: CGFloat = 2*CGFloat(M_PI)
+        let endAngle: CGFloat = 2*CGFloat(Double.pi)
         let path = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         self.progressLayer.path = path.cgPath
         
@@ -114,7 +114,7 @@ class SARMaterialDesignSpinner: UIView {
         let animation = CABasicAnimation(keyPath: "transform.rotation")
         animation.duration = 4
         animation.fromValue = 0
-        animation.toValue = (2 * M_PI)
+        animation.toValue = (2 * Double.pi)
         animation.repeatCount = Float.infinity
         self.progressLayer.add(animation, forKey: kSARRingRotationAnimationKey)
         

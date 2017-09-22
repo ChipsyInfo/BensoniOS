@@ -12,11 +12,14 @@ class PrivacyPolicyViewController: UIViewController,ENSideMenuDelegate {
     var  menuButton:UIButton!
     var  menu:UIBarButtonItem!
     var reachable:Reachability!
+    var appDelegate:AppDelegate!
     @IBOutlet weak var privacyWebView: UIWebView!
     
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "PrivacyPolicyViewController"
         privacyWebView.scrollView.bounces = false
         privacyWebView.scrollView.showsHorizontalScrollIndicator = false
         privacyWebView.scrollView.showsVerticalScrollIndicator = false

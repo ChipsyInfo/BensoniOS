@@ -68,7 +68,7 @@ var localTimeZoneAbbreviation: String { return NSTimeZone.local.abbreviation(for
             self.remindLabel.text = "remind me"
         }
         UIView.animate(withDuration: 2.0, animations: {
-            self.arrowImageView.transform = CGAffineTransform(rotationAngle: (90.0 * CGFloat(M_PI)) / 180.0)
+            self.arrowImageView.transform = CGAffineTransform(rotationAngle: (90.0 * CGFloat(Double.pi)) / 180.0)
         })
         self.eventPopScroll.delegate = self
         self.eventTitleLabel.text = eventTitleString

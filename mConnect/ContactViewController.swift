@@ -11,6 +11,7 @@ import MessageUI
 class ContactViewController: UIViewController,ENSideMenuDelegate,MFMailComposeViewControllerDelegate {
     var  menuButton:UIButton!
     var  menu:UIBarButtonItem!
+    var appDelegate:AppDelegate!
     @IBOutlet weak var mailView: UIView!
     @IBOutlet weak var AddressLabel: UILabel!//16
     @IBOutlet weak var DiscrptionLabe: UILabel!//14
@@ -25,6 +26,8 @@ class ContactViewController: UIViewController,ENSideMenuDelegate,MFMailComposeVi
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "ContactViewController"
         if self.iPhone == true
         {
             if UIScreen.main.bounds.height == 480.0

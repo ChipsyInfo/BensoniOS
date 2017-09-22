@@ -27,6 +27,7 @@ class EventsAllViewController: UIViewController,UITableViewDelegate,UITableViewD
     var eventsarray:NSMutableArray! = NSMutableArray()
     var eventCategoryData:EventsCategoryDataController!
     var Emptylabel:UILabel!
+    var appDelegate:AppDelegate!
     var iPhone: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone
     }
@@ -37,6 +38,8 @@ class EventsAllViewController: UIViewController,UITableViewDelegate,UITableViewD
     override func viewDidLoad() {
         reachable = Reachability()
         super.viewDidLoad()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "EventsAllViewController"
         DispatchQueue.main.async {
             self.Emptylabel = UILabel(frame: CGRect(x: 0, y: (UIScreen.main.bounds.height/2)-(50/2), width: UIScreen.main.bounds.width, height: 50))
             self.Emptylabel.textColor = UIColor.black

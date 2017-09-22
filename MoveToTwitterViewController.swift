@@ -13,6 +13,7 @@ class MoveToTwitterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.SelectedOption = "MoveToTwitterViewController"
         let twitterlink = appDelegate.twitterlink!
         
         let twittertimeline = self.storyboard?.instantiateViewController(withIdentifier: "TwitterTimelineTableViewController") as! TwitterTimelineTableViewController
