@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
     var openNews:Bool! = false
     var eventreminddict:NSMutableDictionary! = [:]
     var window: UIWindow?
-    var mainUrlString:String! = "http://api.mconnect.ideationwizard.com"
+    var mainUrlString:String! = "https://apimconnect.ideationwizard.com"
     var YouTubeArrayCountHome: Int?
     var YouTubeArrayLinkHome:String?
     var SelectedOption:String? = ""
@@ -146,7 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
             //print("Registration Token: \(registrationToken)")
             
             let userInfo = ["registrationToken": registrationToken]
-            let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/adddeviceid")!
+            let url:URL = URL(string: "https://apimconnect.ideationwizard.com/adddeviceid")!
             //let session = URLSession.shared
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
@@ -274,7 +274,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UIAlertViewDelegate,GGLIns
         
         //Then just cast the object as a String, but be careful, you may want to double check for nil
         let buildversion = nsObject as! String
-        let urlString = String(format: "http://api.mconnect.ideationwizard.com/iosversion/%@",buildversion)
+        let urlString = String(format: "https://apimconnect.ideationwizard.com/iosversion/%@",buildversion)
         let url = URL(string: urlString)
         
         // let session = URLSession.shared

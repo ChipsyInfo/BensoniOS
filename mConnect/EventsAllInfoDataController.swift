@@ -20,7 +20,7 @@ class EventsAllInfoDataController: NSObject {
     }
     func loadAllEventsInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/events")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/events")!
         //let session = URLSession.shared
         
         var request = URLRequest(url: url)

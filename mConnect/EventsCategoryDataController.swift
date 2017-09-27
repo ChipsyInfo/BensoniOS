@@ -21,7 +21,7 @@ class EventsCategoryDataController: NSObject {
     }
     func loadAllEventCategoryInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/event_category")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/event_category")!
         // let session = URLSession.shared
         
         var request = URLRequest(url: url)

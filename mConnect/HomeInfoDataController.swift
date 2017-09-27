@@ -42,7 +42,7 @@ class HomeInfoDataController: NSObject {
     func loadHomeScreenData()
     {
         
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/home")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/home")!
         // let session = URLSession.shared
         
         var request = URLRequest(url: url)
@@ -206,7 +206,7 @@ class HomeInfoDataController: NSObject {
         self.eventsArray.removeAllObjects()
         self.newsArray.removeAllObjects()
         self.bannerArray.removeAllObjects()
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/home")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/home")!
         // let session = URLSession.shared
         
         var request = URLRequest(url: url)

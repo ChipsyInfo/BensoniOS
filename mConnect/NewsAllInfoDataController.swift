@@ -20,7 +20,7 @@ class NewsAllInfoDataController: NSObject {
     }
     func loadAllNewsInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/news")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/news")!
         //let session = URLSession.shared
         
         var request = URLRequest(url: url)

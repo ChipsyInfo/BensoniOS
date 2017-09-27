@@ -20,7 +20,7 @@ class FacebookInfoDataController: NSObject {
     }
     func loadFacebookInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/socialmedia/facebook")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/socialmedia/facebook")!
         // let session = URLSession.shared
         
         var request = URLRequest(url: url)

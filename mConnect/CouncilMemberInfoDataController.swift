@@ -21,8 +21,8 @@ class CouncilMemberInfoDataController: NSObject {
     }
     func loadAllCouncilMemberInfo()
     {
-        //api.mconnect.ideationwizard.com
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/councillor")!
+        //apimconnect.ideationwizard.com
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/councillor")!
         // let session = URLSession.shared
         
         var request = URLRequest(url: url)

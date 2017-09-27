@@ -20,7 +20,7 @@ class TwitterInfoDataController: NSObject {
     }
     func loadTwitterInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/socialmedia/twitter")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/socialmedia/twitter")!
         //let session = URLSession.shared
         
         var request = URLRequest(url: url)

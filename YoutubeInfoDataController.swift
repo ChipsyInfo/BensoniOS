@@ -23,7 +23,7 @@ class YoutubeInfoDataController: NSObject {
         func loadYoutubeInfo()
         {
             AppDelegateData = UIApplication.shared.delegate as! AppDelegate!
-            let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/youtube")!
+            let url:URL = URL(string: "https://apimconnect.ideationwizard.com/youtube")!
             // let session = URLSession.shared
             
             var request = URLRequest(url: url)

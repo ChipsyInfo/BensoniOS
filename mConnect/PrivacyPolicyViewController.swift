@@ -43,7 +43,7 @@ class PrivacyPolicyViewController: UIViewController,ENSideMenuDelegate {
         menuButton.addTarget(self, action:#selector(self.menuButtonTouched(_:)), for:UIControlEvents.touchUpInside)
         menu = UIBarButtonItem(customView: menuButton)
         self.navigationItem.rightBarButtonItems = [menu]
-        let url = URL (string: "http://mconnect.ideationwizard.com/privacy")
+        let url = URL (string: "https://mconnect.ideationwizard.com/privacy")
         let requestObj = NSMutableURLRequest(url: url!)
         if reachable.isReachable == true {
             //print("Internet connection OK")

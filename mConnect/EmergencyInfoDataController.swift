@@ -22,7 +22,7 @@ class EmergencyInfoDataController: NSObject {
     }
     func loadAllEmergencyInfo()
     {
-        let url:URL = URL(string: "http://api.mconnect.ideationwizard.com/emergeny")!
+        let url:URL = URL(string: "https://apimconnect.ideationwizard.com/emergeny")!
         //let session = URLSession.shared
         
         var request = URLRequest(url: url)
