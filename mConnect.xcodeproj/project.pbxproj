@@ -336,8 +336,7 @@
 				0AA5A99C1D5AF48A007110DC /* LaunchScreen.storyboard */,
 				0A86DCCC1D5AF2D6007B7BEA /* AppDelegate.swift */,
 			);
-			name = mConnect;
-			path = "Town of Morrisville";
+			path = mConnect;
 			sourceTree = "<group>";
 		};
 		1E24291B1ADB54EB66CEC7AB /* Frameworks */ = {
